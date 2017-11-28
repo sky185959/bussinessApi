@@ -13,7 +13,7 @@ module.exports = appInfo => {
   config.mysql = {
     clients: {
       //  获取client实例，需要通过 app.mysql.get('db1') 获取
-      client: {
+      shopdb: {
         // host
         host: '118.190.206.71',
         // 端口号

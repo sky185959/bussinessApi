@@ -15,32 +15,30 @@ class UserController extends Controller {
 
   async find() {
     const { ctx, service } = this;
-    const Id = ctx.params.id;
-    const result = await service.user.find(Id);
+    const userId = ctx.params.userId;
+    const result = await service.user.find(userId);
     ctx.body = result;
     ctx.status = 200;
   }
 
   async add() {
     const { ctx, service } = this;
-    const Id = ctx.params.id;
-    const result = await service.user.add(Id);
+    const result = await service.user.add();
     ctx.body = result;
     ctx.status = 200;
   }
 
   async update() {
     const { ctx, service } = this;
-    const Id = ctx.params.id;
-    const result = await service.user.update(Id);
+    const result = await service.user.update();
     ctx.body = result;
     ctx.status = 200;
   }
 
   async destroy() {
     const { ctx, service } = this;
-    const Id = ctx.params.id;
-    const result = await service.user.delete(Id);
+    const userId = ctx.params.userId;
+    const result = await service.user.delete(userId);
     ctx.body = result;
     ctx.status = 200;
   }
