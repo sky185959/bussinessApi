@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="/public/css/bootstrap.css" rel="stylesheet">
+    <script src="/js/jquery-3.2.1.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <p>邮件查看代码或调试工具看</p>
+        <a class="btn btn-danger" onclick="login()">登录</a>
+        <a href="/user/list" class="btn btn-danger" >获取所有用户信息</a>
+        <a href="/user/listByPage/1/5" class="btn btn-danger" >分页获取用户信息</a>
+        <a class="btn btn-danger" onclick="addData()">新增用户</a>
+        <a class="btn btn-danger" onclick="updateData()">修改用户</a>
+        <a class="btn btn-danger" onclick="deleteData()">删除用户</a>
+
+        <script type="text/javascript">
+
+        function login(){
+            var csrfToken = getCookie('csrfToken');
+            $.ajaxSetup({
+                beforeSend: function(xhr, settings) {
+                    if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader('x-csrf-token', csrftoken);
+                    }
+                }
+            });
+            
+            $.ajax({
+                type: "POST",
+                url: "http://127.0.0.1:7001/login/login",
+                data: {
+                    username: "sky300",
+                    userpwd:"123456"
+                },
+                async: true,
+                dataType: "json",
+                beforeSend: function() {
+                    
+                },
+                success: function(result) {
+                    console.log(result);
+                },
+                error: function() {
+                   console.log("数据失败");
+                }
+            });
+        }
+
+
+        function deleteData() {
+            $.ajax({
+                type: "delete",
+                url: "http://127.0.0.1:7001/user/delete",
+                data: {
+                    userId: 2
+                },
+                async: true,
+                dataType: "json",
+                beforeSend: function() {
+                    
+                },
+                success: function(result) {
+                    console.log(result);
+                },
+                error: function() {
+                    console.log("数据失败");
+                }
+            });
+        }
+
+
+        function addData() {
+            $.ajax({
+                type: "post",
+                url: "http://127.0.0.1:7001/user/add",
+                data: {
+                    username: "tom",
+                    sex: "男",
+                    email:"3131@qq.com",
+                    phone:"213141414"
+                },
+                async: true,
+                dataType: "json",
+                beforeSend: function() {
+                    
+                },
+                success: function(result) {
+                    console.log(result);
+                },
+                error: function() {
+                    console.log("数据失败");
+                }
+            });
+        }
+
+        function updateData(){
+            $.ajax({
+                type: "put",
+                url: "http://127.0.0.1:7001/user/update",
+                data: {
+                    id:3,
+                    username: "jim",
+                    sex: "男11",
+                    email:"3131@qq.com",
+                    phone:"213141414"
+                },
+                async: true,
+                dataType: "json",
+                beforeSend: function() {
+                    
+                },
+                success: function(result) {
+                    console.log(result);
+                },
+                error: function() {
+                    console.log("数据失败");
+                }
+            });
+        }
+        </script>
+
+    </div>
+</body>
+
+</html>

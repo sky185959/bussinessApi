@@ -4,6 +4,7 @@
 module.exports = app => {
   const { router, controller } = app;
   app.get('/', app.controller.home.index);
+  app.get('/demo', app.controller.home.demo);
   // 登录接口
   router.post('/login/login', controller.login.login);
 
