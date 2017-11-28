@@ -3,8 +3,13 @@
 const Controller = require('egg').Controller;
 
 class LoginController extends Controller {
-  async index() {
-    this.ctx.body = 'hi, egg';
+  async login() {
+    const { ctx, service } = this;
+    const username = ctx.request.body.username;
+    const userpwd = ctx.request.body.userpwd;
+    const result = await service.login.login(username, userpwd);
+    ctx.body = result;
+    ctx.status = 200;
   }
 }
 
