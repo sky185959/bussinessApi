@@ -25,7 +25,7 @@ class UserService extends Service {
   // 根据用户id查询数据
   async findByID(userId) {
     const result = await this.app.mysql.get('shopdb').get('tb_users', { id: userId });
-    return { userInfo: result };
+    return { data: result };
   }
 
   async addModel(data) {
