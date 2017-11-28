@@ -3,8 +3,8 @@
 const Service = require('egg').Service;
 
 class LoginService extends Service {
-  async find(uid) {
-    const user = await this.ctx.db.query('select * from user where uid = ?', uid);
+  async login() {
+    const user = await this.app.mysql.get('shopdb').query('select * from authenticity ');
     return user;
   }
 }
