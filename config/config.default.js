@@ -37,15 +37,15 @@ module.exports = appInfo => {
       //  获取client实例，需要通过 app.mysql.get('db1') 获取
       shopdb: {
         // host
-        host: '127.0.0.1',
+        host: '118.190.206.71',
         // 端口号
         port: '3306',
         // 用户名
-        user: 'root',
+        user: 'shop',
         // 密码
-        password: '123456',
+        password: 'shop',
         // 数据库名
-        database: 'ofo',
+        database: 'shop',
       },
     },
     // 所有数据库配置的默认值

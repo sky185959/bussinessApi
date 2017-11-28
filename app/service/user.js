@@ -4,38 +4,57 @@ const Service = require('egg').Service;
 
 class UserService extends Service {
 
-  // 获取用户列表
-  async list() {
-    const result = await this.app.mysql.get('shopdb').select('tb_users');
+  // 获取所有用户列表
+  async getList() {
+    const result = await this.app.mysql.get('shopdb').select('tb_users', {
+      orders: [[ 'id', 'desc' ]], // 排序方式
+    });
+    return { data: result };
+  }
+
+  // 分页获取数据
+  async getListWithPage(page, pageSize) {
+    const result = await this.app.mysql.get('shopdb').select('tb_users', {
+      orders: [[ 'id', 'desc' ]], // 排序方式
+      limit: parseInt(pageSize), // 返回数据量
+      offset: (page - 1) * pageSize, // 数据偏移量
+    });
     return { count: 100, msg: '', code: '', data: result };
   }
 
   // 根据用户id查询数据
-  async find(userId) {
+  async findByID(userId) {
     const result = await this.app.mysql.get('shopdb').get('tb_users', { id: userId });
     return { userInfo: result };
   }
 
-  async add() {
-    const result = await this.app.mysql.get('shopdb').insert('tb_users');
+  async addModel(data) {
+    // 新增的数据
+    // const user = {
+    //   username: data.username,
+    //   sex: data.sex,
+    //   email: data.email,
+    //   phone: data.phone,
+    // };
+    // 新增数据
+    const result = await this.app.mysql.get('shopdb').insert('tb_users', data);
     return {
-      insertId: result.insertId,
+      insertId: result.insertId, // 添加返回的ID
       flag: result.affectedRows,
       msg: result.affectedRows > 0 ? '添加成功' : '添加失败',
     };
   }
 
-  async update() {
+  async updateModel(data) {
     // 修改数据，将会根据主键 ID 查找，并更新
-    const row = {
-      id: 123,
-      username: 'fengmk2',
-      sex: 'other field value',
-      email: 'other field value',
-      phone: 'other field value',
-      modifiedAt: this.app.mysql.literals.now,
-    };
-    const result = await this.app.mysql.get('shopdb').update('tb_users', row);
+    // const user = {
+    //   id: data.Id,
+    //   username: data.username,
+    //   sex: data.sex,
+    //   email: data.email,
+    //   phone: data.phone,
+    // };
+    const result = await this.app.mysql.get('shopdb').update('tb_users', data);
     return {
       flag: result.affectedRows,
       msg: result.affectedRows > 0 ? '修改成功' : '修改失败',
@@ -43,7 +62,7 @@ class UserService extends Service {
   }
 
   // 根据id删除数据
-  async destroy(userId) {
+  async destroyModel(userId) {
     const result = await this.app.mysql.get('shopdb').delete('tb_users', { id: userId });
     return {
       flag: result.affectedRows,
