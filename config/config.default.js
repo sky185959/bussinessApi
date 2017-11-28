@@ -12,8 +12,8 @@ module.exports = appInfo => {
   // 数据库的配置
   config.mysql = {
     clients: {
-      // db1, 获取client实例，需要通过 app.mysql.get('db1') 获取
-      shopdb: {
+      //  获取client实例，需要通过 app.mysql.get('db1') 获取
+      client: {
         // host
         host: '118.190.206.71',
         // 端口号
@@ -24,18 +24,6 @@ module.exports = appInfo => {
         password: 'shop',
         // 数据库名
         database: 'shop',
-      },
-      db2: {
-        // host
-        host: '127.0.0.1',
-        // 端口号
-        port: '3306',
-        // 用户名
-        user: 'root',
-        // 密码
-        password: '123456',
-        // 数据库名
-        database: 'ofo',
       },
     },
     // 所有数据库配置的默认值

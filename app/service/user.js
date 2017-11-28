@@ -12,12 +12,12 @@ class UserService extends Service {
 
   // 根据用户id查询数据
   async find(id) {
-    const result = await this.app.mysql.get('shopdb').get('authenticity', id);
+    const result = await this.app.mysql.get('authenticity', id);
     return result;
   }
 
   async add() {
-    const result = await this.app.mysql.get('shopdb').insert('authenticity');
+    const result = await this.app.mysql.insert('authenticity');
     return {
       flag: result.affectedRows,
       msg: result.affectedRows > 0 ? '添加成功' : '添加失败',
@@ -25,7 +25,7 @@ class UserService extends Service {
   }
 
   async update() {
-    const result = await this.app.mysql.get('shopdb').update('authenticity');
+    const result = await this.app.mysql.update('authenticity');
     return {
       flag: result.affectedRows,
       msg: result.affectedRows > 0 ? '修改成功' : '修改失败',
@@ -34,7 +34,7 @@ class UserService extends Service {
 
   // 根据id删除数据
   async destroy(id) {
-    const result = await this.app.mysql.get('shopdb').delete('authenticity', id);
+    const result = await this.app.mysql.delete('authenticity', id);
     return {
       flag: result.affectedRows,
       msg: result.affectedRows > 0 ? '删除成功' : '删除失败',
