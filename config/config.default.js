@@ -9,6 +9,14 @@ module.exports = appInfo => {
   // add your config here
   config.middleware = [];
 
+  // nunjucks视图插件
+  config.view = {
+    defaultViewEngine: 'nunjucks',
+    mapping: {
+      '.html': 'nunjucks',
+    },
+  };
+
   // 安全配置
   config.security = {
     // csrf: {

@@ -3,6 +3,12 @@
 // had enabled by egg
 // exports.static = true;
 
+// 模板引擎插件
+exports.nunjucks = {
+  enabled: true,
+  package: 'egg-view-nunjucks',
+};
+
 // mysql数据库插件
 exports.mysql = {
   enable: true,

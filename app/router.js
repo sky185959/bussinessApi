@@ -3,6 +3,7 @@
 // 路由
 module.exports = app => {
   const { router, controller } = app;
+  app.get('/', app.controller.home.index);
   // 登录接口
   router.post('/login/login', controller.login.login);
 
