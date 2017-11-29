@@ -10,6 +10,7 @@ module.exports = app => {
 
   // 用户的路由信息
   router.get('/user/list', controller.user.list);
+  router.get('/user/info', controller.user.userInfo);
   router.get('/user/listByPage', controller.user.getListWithPage);
   router.get('/user/getUserById', controller.user.find);
   router.post('/user/add', controller.user.add);

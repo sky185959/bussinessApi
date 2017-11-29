@@ -13,6 +13,18 @@ class UserController extends Controller {
     ctx.status = 200;
   }
 
+  async userInfo() {
+    const { ctx } = this;
+    ctx.body = {
+      role: [ 'admin' ],
+      name: 'admin',
+      introduction: '我是超级管理员',
+      token: 'admin',
+      avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
+    };
+    ctx.status = 200;
+  }
+
   async getListWithPage() {
     const { ctx, service } = this;
     // get请求获取的参数ctx.request.query
