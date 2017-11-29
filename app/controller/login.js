@@ -6,8 +6,8 @@ class LoginController extends Controller {
   async login() {
     const { ctx, service } = this;
     const username = ctx.request.body.username;
-    const userpwd = ctx.request.body.userpwd;
-    const result = await service.login.login(username, userpwd);
+    const password = ctx.request.body.password;
+    const result = await service.login.login(username, password);
     ctx.body = result;
     ctx.status = 200;
   }
