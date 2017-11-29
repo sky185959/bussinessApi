@@ -10,8 +10,8 @@ module.exports = app => {
 
   // 用户的路由信息
   router.get('/user/list', controller.user.list);
-  router.get('/user/listByPage/:page/:limit', controller.user.getListWithPage);
-  router.get('/user/:userId', controller.user.find);
+  router.get('/user/listByPage', controller.user.getListWithPage);
+  router.get('/user/getUserById', controller.user.find);
   router.post('/user/add', controller.user.add);
   router.post('/user/update', controller.user.update);
   router.post('/user/delete', controller.user.destroy);

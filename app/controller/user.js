@@ -15,8 +15,9 @@ class UserController extends Controller {
 
   async getListWithPage() {
     const { ctx, service } = this;
-    const page = ctx.params.page;
-    const limit = ctx.params.limit;
+    // get请求获取的参数ctx.request.query
+    const page = ctx.request.query.page;
+    const limit = ctx.request.query.limit;
     const result = await service.user.getListWithPage(page, limit);
     ctx.body = result;
     ctx.status = 200;
@@ -24,7 +25,8 @@ class UserController extends Controller {
 
   async find() {
     const { ctx, service } = this;
-    const userId = ctx.params.userId;
+    // get请求获取的参数ctx.request.query
+    const userId = ctx.request.query.userId;
     const result = await service.user.findByID(userId);
     ctx.body = result;
     ctx.status = 200;
