@@ -17,6 +17,41 @@ class LoginService extends Service {
       };
     }
   }
+  // 发送验证码
+  async sendCode(phone) {
+    const url = 'https://api.mysubmail.com/message/xsend';
+    const code = Math.round(Math.random() * 10000);
+    // 请求的参数
+    const params = {
+      appid: '16292',
+      to: phone,
+      vars: { code },
+      project: 'MXqfD3',
+      signature: 'a37b0dcabcfdb03552647f2b266c49b4',
+    };
+    // 请求的配置项
+    const option = {
+      method: 'post',
+      data: params,
+      dataType: 'json',
+      contentType: 'json',
+    };
+
+    const result = await this.ctx.curl(url, option);
+    if (result.status === 200) {
+      return { error_code: 0, info: '获取验证码成功', phone, code };
+    }
+    return { error_code: 1, info: '获取验证码失败', phone };
+  }
+  // 注册用户
+  async regUser(data) {
+    const result = await this.app.mysql.get('shopdb').insert('tb_users', data);
+    return {
+      insertId: result.insertId, // 添加返回的ID
+      flag: result.affectedRows,
+      msg: result.affectedRows > 0 ? '添加成功' : '添加失败',
+    };
+  }
 }
 
 module.exports = LoginService;
