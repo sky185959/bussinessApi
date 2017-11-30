@@ -17,9 +17,17 @@ class LoginService extends Service {
       };
     }
   }
-  // 用户根据用户名、邮箱和手机号码登录接口
-  async userLogin(data) {
-    const result = await this.app.mysql.get('shopdb').get('tb_users', data);
+  // 用户根据用户名登录接口
+  async LoginByName(username, password) {
+    const result = await this.app.mysql.get('shopdb').get('tb_users', { username, password });
+    return {
+      error_code: result ? 0 : 1,
+      data: result,
+    };
+  }
+  // 用户根据邮箱登录
+  async LoginByEmail(email, password) {
+    const result = await this.app.mysql.get('shopdb').get('tb_users', { email, password });
     return {
       error_code: result ? 0 : 1,
       data: result,
