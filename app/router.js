@@ -7,10 +7,16 @@ module.exports = app => {
   app.get('/demo', app.controller.home.demo);
   // 登录接口
   router.post('/login/login', controller.login.login);
+  // 用户根据用户名、邮箱和手机号码登录接口
+  router.post('/login/userLogin', controller.login.userLogin);
   // 根据手机号发送验证码
   router.post('/login/sendCode', controller.login.sendCode);
-  // 注册用户
-  router.post('/login/register', controller.login.regUser);
+  // 手机号码注册用户
+  router.post('/login/regWithPhone', controller.login.regWithPhone);
+  // 邮箱注册用户
+  router.post('/login/regWithEmail', controller.login.regWithEmail);
+  // 用户名注册用户
+  router.post('/login/regUser', controller.login.regUser);
 
   // 用户的路由信息
   router.get('/user/list', controller.user.list);

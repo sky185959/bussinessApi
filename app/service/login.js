@@ -17,6 +17,14 @@ class LoginService extends Service {
       };
     }
   }
+  // 用户根据用户名、邮箱和手机号码登录接口
+  async userLogin(data) {
+    const result = await this.app.mysql.get('shopdb').get('tb_users', data);
+    return {
+      error_code: result ? 0 : 1,
+      data: result,
+    };
+  }
   // 发送验证码
   async sendCode(phone) {
     const url = 'https://api.mysubmail.com/message/xsend';
@@ -44,12 +52,30 @@ class LoginService extends Service {
     return { error_code: 1, msg: '获取验证码失败', phone };
   }
   // 注册用户
+  async regWithEmail(data) {
+    const result = await this.app.mysql.get('shopdb').insert('tb_users', data);
+    return {
+      insertId: result.insertId, // 添加返回的ID
+      flag: result.affectedRows,
+      msg: result.affectedRows > 0 ? '注册成功' : '注册失败',
+    };
+  }
+  // 手机号码注册用户
+  async regWithPhone(data) {
+    const result = await this.app.mysql.get('shopdb').insert('tb_users', data);
+    return {
+      insertId: result.insertId, // 添加返回的ID
+      flag: result.affectedRows,
+      msg: result.affectedRows > 0 ? '注册成功' : '注册失败',
+    };
+  }
+  // 注册用户
   async regUser(data) {
     const result = await this.app.mysql.get('shopdb').insert('tb_users', data);
     return {
       insertId: result.insertId, // 添加返回的ID
       flag: result.affectedRows,
-      msg: result.affectedRows > 0 ? '添加成功' : '添加失败',
+      msg: result.affectedRows > 0 ? '注册成功' : '注册失败',
     };
   }
 }
