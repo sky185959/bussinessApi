@@ -39,9 +39,9 @@ class LoginService extends Service {
 
     const result = await this.ctx.curl(url, option);
     if (result.status === 200) {
-      return { error_code: 0, info: '获取验证码成功', phone, code };
+      return { error_code: 0, msg: '获取验证码成功', phone, code };
     }
-    return { error_code: 1, info: '获取验证码失败', phone };
+    return { error_code: 1, msg: '获取验证码失败', phone };
   }
   // 注册用户
   async regUser(data) {
