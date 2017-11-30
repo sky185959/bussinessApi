@@ -33,6 +33,14 @@ class LoginService extends Service {
       data: result,
     };
   }
+  // 用户根据手机号码登录
+  async LoginByPhone(phone, password) {
+    const result = await this.app.mysql.get('shopdb').get('tb_users', { phone, password });
+    return {
+      error_code: result ? 0 : 1,
+      data: result,
+    };
+  }
   // 发送验证码
   async sendCode(phone) {
     const url = 'https://api.mysubmail.com/message/xsend';

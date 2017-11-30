@@ -23,21 +23,21 @@
         <script type="text/javascript">
 
         function login(){
-            var csrfToken = getCookie('csrfToken');
-            $.ajaxSetup({
-                beforeSend: function(xhr, settings) {
-                    if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-                    xhr.setRequestHeader('x-csrf-token', csrftoken);
-                    }
-                }
-            });
+            // var csrfToken = getCookie('csrfToken');
+            // $.ajaxSetup({
+            //     beforeSend: function(xhr, settings) {
+            //         if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            //         xhr.setRequestHeader('x-csrf-token', csrftoken);
+            //         }
+            //     }
+            // });
             
             $.ajax({
                 type: "POST",
-                url: "http://127.0.0.1:7001/login/login",
+                url: "http://127.0.0.1:7001/login/LoginByPhone",
                 data: {
-                    username: "sky300",
-                    userpwd:"123456"
+                    phone: "18210427783",
+                    password:"121212"
                 },
                 async: true,
                 dataType: "json",
@@ -79,16 +79,16 @@
         function addData() {
             $.ajax({
                 type: "post",
-                url: "http://127.0.0.1:7001/login/register",
+                url: "http://127.0.0.1:7001/login/regWithPhone",
                 // data: {
                 //     username: "tom",
                 //     sex: "男",
                 //     email:"3131@qq.com",
                 //     phone:"213141414"
                 // },
-                 data: {
-                    password:'121212',
-                    phone:"18210427783"
+                 data: {                   
+                    phone:"121",
+                    password:'122',
                 },
                 async: true,
                 dataType: "json",

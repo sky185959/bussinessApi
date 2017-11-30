@@ -56,6 +56,9 @@ class LoginController extends Controller {
   // 发送验证码
   async sendCode() {
     const { ctx, service } = this;
+    ctx.validate({
+      phone: { type: 'string', required: true, format: /^(((13[0-9]{1})|(15[0-9]{1})|(17[0-9]{1})|(18[0-9]{1}))+\d{8})$/ },
+    });
     const phone = ctx.request.body.phone;
     const result = await service.login.sendCode(phone);
     ctx.body = result;
