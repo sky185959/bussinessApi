@@ -1,5 +1,7 @@
 'use strict';
 
+
+
 // 路由
 module.exports = app => {
   const { router, controller } = app;
@@ -18,5 +20,9 @@ module.exports = app => {
   router.delete('/user/delete', controller.user.destroy);
   router.get('/shop/list', controller.shop.list);
   router.get('/shopping/list', controller.shopping.list);
+  router.get('/shop/listByPage', controller.shop.listByPage);
+  router.get('/shopping/listByPage', controller.shopping.listByPage);
+  router.get('/shopping/listByShop', controller.shopping.getShoppingListByShop);
+  router.get('/shop/listByUser', controller.shop.getShopListByUser);
 
 };
