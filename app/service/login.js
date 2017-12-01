@@ -35,9 +35,9 @@ class LoginService extends Service {
   }
   // 用户根据手机号码登录
   async LoginByPhone(phone, password) {
-    console.log(new Date());
-    const createtime = this.app.helper.relativeTime(new Date());
-    console.log(createtime);
+    // console.log(new Date());
+    // const createtime = this.app.helper.relativeTime(new Date());
+    // console.log(createtime);
     const result = await this.app.mysql.get('shopdb').get('tb_users', { phone, password });
     return {
       error_code: result ? 0 : 1,
