@@ -40,7 +40,7 @@ class UserService extends Service {
     const result = await this.app.mysql.get('shopdb').insert('tb_users', data);
     return {
       insertId: result.insertId, // 添加返回的ID
-      flag: result.affectedRows,
+      error_code: result.affectedRows,
       msg: result.affectedRows > 0 ? '添加成功' : '添加失败',
     };
   }
@@ -56,7 +56,7 @@ class UserService extends Service {
     // };
     const result = await this.app.mysql.get('shopdb').update('tb_users', data);
     return {
-      flag: result.affectedRows,
+      error_code: result.affectedRows,
       msg: result.affectedRows > 0 ? '修改成功' : '修改失败',
     };
   }
@@ -65,7 +65,7 @@ class UserService extends Service {
   async destroyModel(userId) {
     const result = await this.app.mysql.get('shopdb').delete('tb_users', { id: userId });
     return {
-      flag: result.affectedRows,
+      error_code: result.affectedRows,
       msg: result.affectedRows > 0 ? '删除成功' : '删除失败',
     };
   }

@@ -72,7 +72,7 @@ class LoginService extends Service {
     const result = await this.app.mysql.get('shopdb').insert('tb_users', data);
     return {
       insertId: result.insertId, // 添加返回的ID
-      flag: result.affectedRows,
+      error_code: result.affectedRows,
       msg: result.affectedRows > 0 ? '注册成功' : '注册失败',
     };
   }
@@ -81,7 +81,7 @@ class LoginService extends Service {
     const result = await this.app.mysql.get('shopdb').insert('tb_users', data);
     return {
       insertId: result.insertId, // 添加返回的ID
-      flag: result.affectedRows,
+      error_code: result.affectedRows,
       msg: result.affectedRows > 0 ? '注册成功' : '注册失败',
     };
   }
@@ -90,9 +90,24 @@ class LoginService extends Service {
     const result = await this.app.mysql.get('shopdb').insert('tb_users', data);
     return {
       insertId: result.insertId, // 添加返回的ID
-      flag: result.affectedRows,
+      error_code: result.affectedRows,
       msg: result.affectedRows > 0 ? '注册成功' : '注册失败',
     };
+  }
+  // 判断用户手机号码是否存在
+  async isHaveUserPhone(phone) {
+    const result = await this.app.mysql.get('shopdb').insert('tb_users', { phone });
+    return result;
+  }
+  // 判断用户邮箱是否存在
+  async isHaveUserEmail(email) {
+    const result = await this.app.mysql.get('shopdb').insert('tb_users', { email });
+    return result;
+  }
+  // 判断用户名是否存在
+  async isHaveUserName(username) {
+    const result = await this.app.mysql.get('shopdb').insert('tb_users', { username });
+    return result;
   }
 }
 
