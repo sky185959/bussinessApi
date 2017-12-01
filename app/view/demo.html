@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="/public/css/bootstrap.css" rel="stylesheet">
-    <script src="/js/jquery-3.2.1.min.js"></script>
+    <script src="/public/js/jquery-3.2.1.min.js"></script>
 </head>
 
 <body>
@@ -18,25 +18,26 @@
         <a class="btn btn-danger" onclick="addData()">新增用户</a>
         <a class="btn btn-danger" onclick="updateData()">修改用户</a>
         <a class="btn btn-danger" onclick="deleteData()">删除用户</a>
+        <a class="btn btn-danger" onclick="sendCode()">发送验证码</a>
 
         <script type="text/javascript">
 
         function login(){
-            var csrfToken = getCookie('csrfToken');
-            $.ajaxSetup({
-                beforeSend: function(xhr, settings) {
-                    if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-                    xhr.setRequestHeader('x-csrf-token', csrftoken);
-                    }
-                }
-            });
+            // var csrfToken = getCookie('csrfToken');
+            // $.ajaxSetup({
+            //     beforeSend: function(xhr, settings) {
+            //         if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            //         xhr.setRequestHeader('x-csrf-token', csrftoken);
+            //         }
+            //     }
+            // });
             
             $.ajax({
                 type: "POST",
-                url: "http://127.0.0.1:7001/login/login",
+                url: "http://127.0.0.1:7001/login/LoginByPhone",
                 data: {
-                    username: "sky300",
-                    userpwd:"123456"
+                    phone: "18210427783",
+                    password:"121212"
                 },
                 async: true,
                 dataType: "json",
@@ -78,12 +79,16 @@
         function addData() {
             $.ajax({
                 type: "post",
-                url: "http://127.0.0.1:7001/user/add",
-                data: {
-                    username: "tom",
-                    sex: "男",
-                    email:"3131@qq.com",
-                    phone:"213141414"
+                url: "http://127.0.0.1:7001/login/regWithPhone",
+                // data: {
+                //     username: "tom",
+                //     sex: "男",
+                //     email:"3131@qq.com",
+                //     phone:"213141414"
+                // },
+                 data: {                   
+                    phone:"121",
+                    password:'122',
                 },
                 async: true,
                 dataType: "json",
@@ -109,6 +114,27 @@
                     sex: "男11",
                     email:"3131@qq.com",
                     phone:"213141414"
+                },
+                async: true,
+                dataType: "json",
+                beforeSend: function() {
+                    
+                },
+                success: function(result) {
+                    console.log(result);
+                },
+                error: function() {
+                    console.log("数据失败");
+                }
+            });
+        }
+
+        function sendCode(){
+            $.ajax({
+                type: "post",
+                url: "http://127.0.0.1:7001/login/sendCode",
+                data: {
+                    phone:"18210427783"
                 },
                 async: true,
                 dataType: "json",
