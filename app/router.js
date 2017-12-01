@@ -1,7 +1,5 @@
 'use strict';
 
-
-
 // 路由
 module.exports = app => {
   const { router, controller } = app;
@@ -23,6 +21,10 @@ module.exports = app => {
   router.post('/login/regUser', controller.login.regUser);
   // 用户根据用户名登录
   router.post('/login/LoginByName', controller.login.LoginByName);
+  // 根据手机号码找回密码
+  router.post('/login/findPasswordByPhone', controller.login.findPasswordByPhone);
+  // 根据手机号码设置新密码
+  router.post('/login/newPasswordByPhone', controller.login.setPasswordWithPhone);
 
   // 用户的路由信息
   router.get('/user/list', controller.user.list);
