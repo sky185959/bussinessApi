@@ -35,6 +35,9 @@ class LoginService extends Service {
   }
   // 用户根据手机号码登录
   async LoginByPhone(phone, password) {
+    // console.log(new Date());
+    // const createtime = this.app.helper.relativeTime(new Date());
+    // console.log(createtime);
     const result = await this.app.mysql.get('shopdb').get('tb_users', { phone, password });
     return {
       error_code: result ? 0 : 1,
@@ -68,7 +71,7 @@ class LoginService extends Service {
     return { error_code: 1, msg: '获取验证码失败', phone };
   }
   // 注册用户
-  async regWithEmail(data) {
+  async regWithEmail(data) {    
     const result = await this.app.mysql.get('shopdb').insert('tb_users', data);
     return {
       insertId: result.insertId, // 添加返回的ID
@@ -92,6 +95,15 @@ class LoginService extends Service {
       insertId: result.insertId, // 添加返回的ID
       error_code: result.affectedRows > 0 ? 0 : 1,
       msg: result.affectedRows > 0 ? '注册成功' : '注册失败',
+    };
+  }
+  // 根据手机号码设置新密码
+  async changePassword(data) {
+    const sql = ' update tb_users set password = ? where phone = ? ';
+    const result = await this.app.mysql.get('shopdb').query(sql, [ data.password, data.phone ]);
+    return {
+      error_code: result.affectedRows > 0 ? 0 : 1,
+      msg: result.affectedRows > 0 ? '修改密码成功' : '修改密码失败',
     };
   }
   // 判断用户手机号码是否存在

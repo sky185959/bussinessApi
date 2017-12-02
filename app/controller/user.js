@@ -46,6 +46,11 @@ class UserController extends Controller {
 
   async add() {
     const { ctx, service } = this;
+    // 验证提交的参数
+    ctx.validate({
+      username: { type: 'string', required: true },
+      password: { type: 'string', required: true, min: 6 },
+    });
     const result = await service.user.addModel(ctx.request.body);
     ctx.body = result;
     ctx.status = 200;
@@ -53,6 +58,10 @@ class UserController extends Controller {
 
   async update() {
     const { ctx, service } = this;
+    // 验证提交的参数
+    ctx.validate({
+      id: { type: 'int', required: true },
+    });
     const result = await service.user.updateModel(ctx.request.body);
     ctx.body = result;
     ctx.status = 200;

@@ -114,6 +114,41 @@ class LoginController extends Controller {
     }
     ctx.status = 200;
   }
+  // 根据手机号码找回密码
+  async findPasswordByPhone() {
+    const { ctx, service } = this;
+    // 验证提交的参数
+    ctx.validate({
+      phone: { type: 'string', required: true, format: /^(((13[0-9]{1})|(15[0-9]{1})|(17[0-9]{1})|(18[0-9]{1}))+\d{8})$/ },
+    });
+    const phone = ctx.request.body.phone;
+    const isHavePhone = await service.login.isHaveUserPhone(phone);
+    if (!isHavePhone) {
+      ctx.body = { error_code: 1, msg: '该手机号未注册', phone };
+    } else {
+      const result = await service.login.sendCode(phone);
+      ctx.body = result;
+    }
+    ctx.status = 200;
+  }
+  // 根据手机号码设置新密码
+  async setPasswordWithPhone() {
+    const { ctx, service } = this;
+    // 验证提交的参数
+    ctx.validate({
+      phone: { type: 'string', required: true, format: /^(((13[0-9]{1})|(15[0-9]{1})|(17[0-9]{1})|(18[0-9]{1}))+\d{8})$/ },
+      password: { type: 'string', required: true, min: 6 },
+    });
+    const phone = ctx.request.body.phone;
+    const isHavePhone = await service.login.isHaveUserPhone(phone);
+    if (!isHavePhone) {
+      ctx.body = { error_code: 1, msg: '该手机号未注册', phone };
+    } else {
+      const result = await service.login.changePassword(ctx.request.body);
+      ctx.body = result;
+    }
+    ctx.status = 200;
+  }
 }
 
 module.exports = LoginController;
