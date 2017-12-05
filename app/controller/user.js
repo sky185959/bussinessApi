@@ -27,6 +27,10 @@ class UserController extends Controller {
 
   async getListWithPage() {
     const { ctx, service } = this;
+    ctx.validate({
+      page: { type: 'int', required: true },
+      limit: { type: 'int', required: true },
+    });
     // get请求获取的参数ctx.request.query
     const page = ctx.request.query.page;
     const limit = ctx.request.query.limit;

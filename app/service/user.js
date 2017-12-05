@@ -6,7 +6,7 @@ class UserService extends Service {
 
   // 获取所有用户列表
   async getList() {
-    const result = await this.app.mysql.get('shopdb').select('tb_users', {
+    const result = await this.app.mysql.select('tb_users', {
       orders: [[ 'id', 'desc' ]], // 排序方式
     });
     return { data: result };
@@ -18,13 +18,13 @@ class UserService extends Service {
     const limit = parseInt(pageSize);
     const offset = (parseInt(page) - 1) * limit;
     // 获取总条数
-    const count = await this.app.mysql.get('shopdb').query('SELECT count(id) as totalCount FROM tb_users');
+    const count = await this.app.mysql.query('SELECT count(id) as totalCount FROM tb_users');
     // 根据用户名模糊搜索
     if (username) {
       const sql = " select * from tb_users where username like '%" + username + "%' limit " + offset + ',' + limit;
-      result = await this.app.mysql.get('shopdb').query(sql);
+      result = await this.app.mysql.query(sql);
     } else {
-      result = await this.app.mysql.get('shopdb').select('tb_users', {
+      result = await this.app.mysql.select('tb_users', {
         orders: [[ 'id', 'desc' ]], // 排序方式
         limit, // 返回数据量
         offset, // 数据偏移量
@@ -35,22 +35,16 @@ class UserService extends Service {
 
   // 根据用户id查询数据
   async findByID(userId) {
-    const result = await this.app.mysql.get('shopdb').get('tb_users', { id: userId });
+    const result = await this.app.mysql.get('tb_users', { id: userId });
     return { data: result };
   }
 
+  // 新增的数据
   async addModel(data) {
-    // 新增的数据
-    // const user = {
-    //   username: data.username,
-    //   sex: data.sex,
-    //   email: data.email,
-    //   phone: data.phone,
-    // };
     const { ctx, app } = this;
     data.createtime = ctx.helper.currentDateTime();
     // 新增数据
-    const result = await app.mysql.get('shopdb').insert('tb_users', data);
+    const result = await app.mysql.insert('tb_users', data);
     return {
       insertId: result.insertId, // 添加返回的ID
       error_code: result.affectedRows > 0 ? 0 : 1,
@@ -60,16 +54,9 @@ class UserService extends Service {
 
   async updateModel(data) {
     // 修改数据，将会根据主键 ID 查找，并更新
-    // const user = {
-    //   id: data.Id,
-    //   username: data.username,
-    //   sex: data.sex,
-    //   email: data.email,
-    //   phone: data.phone,
-    // };
     const { ctx, app } = this;
     data.createtime = ctx.helper.currentDateTime();
-    const result = await app.mysql.get('shopdb').update('tb_users', data);
+    const result = await app.mysql.update('tb_users', data);
     return {
       error_code: result.affectedRows > 0 ? 0 : 1,
       msg: result.affectedRows > 0 ? '修改成功' : '修改失败',
@@ -78,7 +65,7 @@ class UserService extends Service {
 
   // 根据id删除数据
   async destroyModel(userId) {
-    const result = await this.app.mysql.get('shopdb').delete('tb_users', { id: userId });
+    const result = await this.app.mysql.delete('tb_users', { id: userId });
     return {
       error_code: result.affectedRows > 0 ? 0 : 1,
       msg: result.affectedRows > 0 ? '删除成功' : '删除失败',
