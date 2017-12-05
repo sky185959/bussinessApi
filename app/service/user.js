@@ -13,12 +13,21 @@ class UserService extends Service {
   }
 
   // 分页获取数据
-  async getListWithPage(page, pageSize) {
-    const result = await this.app.mysql.get('shopdb').select('tb_users', {
-      orders: [[ 'id', 'desc' ]], // 排序方式
-      limit: parseInt(pageSize), // 返回数据量
-      offset: (page - 1) * pageSize, // 数据偏移量
-    });
+  async getListWithPage(page, pageSize, username) {
+    let result = null;
+    const limit = parseInt(pageSize);
+    const offset = (parseInt(page) - 1) * limit;
+    // 根据用户名模糊搜索
+    if (username) {
+      const sql = " select * from tb_users where username like '%" + username + "%' limit " + offset + ',' + limit;
+      result = await this.app.mysql.get('shopdb').query(sql);
+    } else {
+      result = await this.app.mysql.get('shopdb').select('tb_users', {
+        orders: [[ 'id', 'desc' ]], // 排序方式
+        limit, // 返回数据量
+        offset, // 数据偏移量
+      });
+    }
     return { count: 100, msg: '', code: '', data: result };
   }
 

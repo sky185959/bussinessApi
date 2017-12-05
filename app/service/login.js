@@ -113,7 +113,7 @@ class LoginService extends Service {
   }
   // 手机号码注册用户
   async regWithPhone(data) {
-    // data.createtime = this.app.helper.relativeTime(new Date().valueOf());
+    // data.createtime = this.app.Helper.relativeTime(new Date().valueOf());
     console.log(data.createtime);
     const result = await this.app.mysql.get('shopdb').insert('tb_users', data);
     return {
