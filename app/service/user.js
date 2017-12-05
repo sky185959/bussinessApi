@@ -47,8 +47,10 @@ class UserService extends Service {
     //   email: data.email,
     //   phone: data.phone,
     // };
+    const { ctx, app } = this;
+    data.createtime = ctx.helper.currentDateTime();
     // 新增数据
-    const result = await this.app.mysql.get('shopdb').insert('tb_users', data);
+    const result = await app.mysql.get('shopdb').insert('tb_users', data);
     return {
       insertId: result.insertId, // 添加返回的ID
       error_code: result.affectedRows > 0 ? 0 : 1,
@@ -65,7 +67,9 @@ class UserService extends Service {
     //   email: data.email,
     //   phone: data.phone,
     // };
-    const result = await this.app.mysql.get('shopdb').update('tb_users', data);
+    const { ctx, app } = this;
+    data.createtime = ctx.helper.currentDateTime();
+    const result = await app.mysql.get('shopdb').update('tb_users', data);
     return {
       error_code: result.affectedRows > 0 ? 0 : 1,
       msg: result.affectedRows > 0 ? '修改成功' : '修改失败',

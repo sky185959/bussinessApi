@@ -2,7 +2,8 @@
 const moment = require('moment');
 
 module.exports = {
-  relativeTime(time) {
-    return moment(new Date(time * 1000)).fromNow();
+  // 格式化当前时间
+  currentDateTime() {
+    return moment().format('YYYY-MM-DD HH:mm:ss');
   },
 };

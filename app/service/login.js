@@ -103,8 +103,9 @@ class LoginService extends Service {
   }
   // 根据邮箱注册用户
   async regWithEmail(data) {
-    // data.createtime = this.app.mysql.literals.now;
-    const result = await this.app.mysql.get('shopdb').insert('tb_users', data);
+    const { ctx, app } = this;
+    data.createtime = ctx.helper.currentDateTime();
+    const result = await app.mysql.get('shopdb').insert('tb_users', data);
     return {
       insertId: result.insertId, // 添加返回的ID
       error_code: result.affectedRows > 0 ? 0 : 1,
@@ -113,9 +114,9 @@ class LoginService extends Service {
   }
   // 手机号码注册用户
   async regWithPhone(data) {
-    // data.createtime = this.app.Helper.relativeTime(new Date().valueOf());
-    console.log(data.createtime);
-    const result = await this.app.mysql.get('shopdb').insert('tb_users', data);
+    const { ctx, app } = this;
+    data.createtime = ctx.helper.currentDateTime();
+    const result = await app.mysql.get('shopdb').insert('tb_users', data);
     return {
       insertId: result.insertId, // 添加返回的ID
       error_code: result.affectedRows > 0 ? 0 : 1,
@@ -124,8 +125,9 @@ class LoginService extends Service {
   }
   // 注册用户
   async regUser(data) {
-    // data.createtime = this.app.mysql.literals.now;
-    const result = await this.app.mysql.get('shopdb').insert('tb_users', data);
+    const { ctx, app } = this;
+    data.createtime = ctx.helper.currentDateTime();
+    const result = await app.mysql.get('shopdb').insert('tb_users', data);
     return {
       insertId: result.insertId, // 添加返回的ID
       error_code: result.affectedRows > 0 ? 0 : 1,
