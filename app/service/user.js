@@ -17,6 +17,8 @@ class UserService extends Service {
     let result = null;
     const limit = parseInt(pageSize);
     const offset = (parseInt(page) - 1) * limit;
+    // 获取总条数
+    const count = await this.app.mysql.get('shopdb').query('SELECT count(id) as totalCount FROM tb_users');
     // 根据用户名模糊搜索
     if (username) {
       const sql = " select * from tb_users where username like '%" + username + "%' limit " + offset + ',' + limit;
@@ -28,7 +30,7 @@ class UserService extends Service {
         offset, // 数据偏移量
       });
     }
-    return { count: 100, msg: '', code: '', data: result };
+    return { count: count.length > 0 ? count[0].totalCount : 0, msg: '', code: '', data: result };
   }
 
   // 根据用户id查询数据
