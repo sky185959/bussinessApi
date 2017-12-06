@@ -89,7 +89,7 @@ class ShoppingService extends Service {
     });
     return { count: result.length, msg: '', code: '', data: result };
   }
-<<<<<<< HEAD
+
   
    async getShoppingListBySaleTy(saleid) {
 	    const result = await this.app.mysql.get('shopdb').select('shopping',{
@@ -98,8 +98,7 @@ class ShoppingService extends Service {
 
 	    return { count: result.length, msg: '', code: '', data: result };
 	}
-=======
->>>>>>> 16dec79d6d0a139e74b5ba4d8dc5a652834309fd
+
 }
 
 module.exports = ShoppingService;
