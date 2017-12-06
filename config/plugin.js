@@ -26,3 +26,9 @@ exports.validate = {
   enable: true,
   package: 'egg-validate',
 };
+
+// 开启国际化状态
+exports.i18n = {
+  enable: true,
+  package: 'egg-i18n',
+};

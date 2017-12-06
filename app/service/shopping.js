@@ -3,10 +3,52 @@
 const Service = require('egg').Service;
 
 class ShoppingService extends Service {
-  // 获取所有的商品
-  async list() {
-    const result = await this.app.mysql.select('tb_goods');
-    return { list: result };
+  // 获取APP首页获取商品的信息
+  async list(page, pageSize) {
+    const limit = parseInt(pageSize);
+    const offset = (parseInt(page) - 1) * limit;
+    // 轮播图列表
+    const bannerList = await this.app.mysql.select('tb_banner', {
+      orders: [[ 'id', 'desc' ]], // 排序方式
+      limit: 3, // 返回数据量
+      offset: 0, // 数据偏移量
+    });
+    // 本周推荐
+    const weekRecommend = await this.app.mysql.select('tb_goods', {
+      where: { sale_ty: 0 },
+      orders: [[ 'id', 'desc' ]], // 排序方式
+      limit, // 返回数据量
+      offset, // 数据偏移量
+    });
+    // 本月推荐
+    const monthRecommend = await this.app.mysql.select('tb_goods', {
+      where: { sale_ty: 1 },
+      orders: [[ 'id', 'desc' ]], // 排序方式
+      limit, // 返回数据量
+      offset, // 数据偏移量
+    });
+    // 家庭套装
+    const homeRecommend = await this.app.mysql.select('tb_goods', {
+      where: { sale_ty: 2 },
+      orders: [[ 'id', 'desc' ]], // 排序方式
+      limit, // 返回数据量
+      offset, // 数据偏移量
+    });
+    // 推荐列表
+    const recommendList = await this.app.mysql.select('tb_goods', {
+      where: { sale_ty: 3 },
+      orders: [[ 'id', 'desc' ]], // 排序方式
+      limit, // 返回数据量
+      offset, // 数据偏移量
+    });
+    return {
+      companyname: '北京快速购科技有限公司',
+      bannerList,
+      weekRecommend,
+      monthRecommend,
+      homeRecommend,
+      recommendList,
+    };
   }
 
   // 分页获取数据
@@ -84,20 +126,11 @@ class ShoppingService extends Service {
   }
 
   async getShoppingListBySaleTy(saleid) {
-    const result = await this.app.mysql.select('tb_goods', {
-      where: { sale_ty: saleid },
+    const result = await this.app.mysql.select('shopping', {
+      where: { sale_ty: saleid, is_delete: 0, status: 2 },
     });
     return { count: result.length, msg: '', code: '', data: result };
   }
-
-  
-   async getShoppingListBySaleTy(saleid) {
-	    const result = await this.app.mysql.get('shopdb').select('shopping',{
-	    	where:{sale_ty:saleid,is_delete:0,status:2}
-	    });
-
-	    return { count: result.length, msg: '', code: '', data: result };
-	}
 
 }
 
