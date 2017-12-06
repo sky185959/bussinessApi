@@ -3,9 +3,12 @@
 const Controller = require('egg').Controller;
 
 class ShoppingController extends Controller {
+  // 获取APP首页获取商品的信息
   async list() {
     const { ctx, service } = this;
-    const result = await service.shopping.list();
+    const page = ctx.request.query.page;
+    const limit = ctx.request.query.limit;
+    const result = await service.shopping.list(page, limit);
     ctx.body = result;
     ctx.status = 200;
   }
