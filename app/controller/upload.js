@@ -19,17 +19,17 @@ class UploadController extends Controller {
     let returnUrl;
     // 图片上传到imgUpload文件夹中
     if (extname === '.jpg' || extname === '.jpeg' || extname === '.png' || extname === '.gif' || extname === '.bmp') {
-      targetDir = path.join(this.config.baseDir, '/public/imgUpload');
-      returnUrl = path.join('app/public/imgUpload', filename);
+      targetDir = path.join(this.config.baseDir, '/app/public/imgUpload', filename);
+      returnUrl = path.join('/public/imgUpload', filename);
     } else if (extname === '.doc' || extname === '.txt' || extname === '.xls') {
-      targetDir = path.join(this.config.baseDir, '/public/officeUpload');
-      returnUrl = path.join('app/public/officeUpload', filename);
+      targetDir = path.join(this.config.baseDir, '/app/public/officeUpload', filename);
+      returnUrl = path.join('/public/officeUpload', filename);
     } else {
-      targetDir = path.join(this.config.baseDir, '/public/otherUpload');
-      returnUrl = path.join('app/public/otherUpload', filename);
+      targetDir = path.join(this.config.baseDir, '/app/public/otherUpload', filename);
+      returnUrl = path.join('/public/otherUpload', filename);
     }
-    const target = path.join(targetDir, filename);
-    const writeStream = fs.createWriteStream(target);
+    console.log(targetDir);
+    const writeStream = fs.createWriteStream(targetDir);
     try {
       await awaitWriteStream(stream.pipe(writeStream));
     } catch (err) {
