@@ -9,12 +9,12 @@ class NpmController extends Controller {
   async upload() {
   	const ctx = this.ctx;
     const stream = await ctx.getFileStream();
-    console.log(stream)
     const name = 'egg-multipart-test/' + path.basename(stream.filename);
+    console.log(this);
     let result;
     try {
       // process file or upload to cloud storage
-      result = await ctx.oss.put(name, stream);
+      result = await this.oss.put(name, stream);
     } catch (err) {
       // must consume the stream, otherwise browser will be stuck.
       await sendToWormhole(stream);
@@ -26,7 +26,11 @@ class NpmController extends Controller {
       // process form fields by `stream.fields`
       fields: stream.fields,
     }
-	await this.ctx.render('upload');
+	
+  }
+
+  async uploadIndex(){
+  	await this.ctx.render('upload');
   }
 
 }
