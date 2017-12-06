@@ -10,6 +10,8 @@
 
 ### 本地开发
 
+# 该项目是基于node版本8.9以上可以正常运行，请更新node版本到8.9以上即可
+
 ```bash
 # 克隆项目
 $ git clone https://github.com/sky185959/bussinessApi.git

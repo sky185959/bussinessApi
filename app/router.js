@@ -34,6 +34,8 @@ module.exports = app => {
   router.post('/user/add', controller.user.add);
   router.post('/user/update', controller.user.update);
   router.post('/user/delete', controller.user.destroy);
+
+  // 商品路由
   router.get('/shop/list', controller.shop.list);
   router.get('/shopping/list', controller.shopping.list);
   router.get('/shop/listByPage', controller.shop.listByPage);
@@ -42,5 +44,9 @@ module.exports = app => {
   router.get('/shop/listByUser', controller.shop.getShopListByUser);
   router.get('/shopping/listBySale', controller.shopping.getShoppingListBySaleTy);
   router.get('/npm/upload', controller.npm.upload);
+
+  router.post('/goods/add', controller.shopping.add);
+  router.post('/goods/update', controller.shopping.update);
+  router.post('/goods/delete', controller.shopping.destroy);
 
 };
