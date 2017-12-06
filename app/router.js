@@ -43,6 +43,7 @@ module.exports = app => {
   router.get('/shop/listByUser', controller.shop.getShopListByUser);
   router.get('/shopping/listBySale', controller.shopping.getShoppingListBySaleTy);
 
+  router.get('/goods/getModelById', controller.shopping.find);
   router.post('/goods/add', controller.shopping.add);
   router.post('/goods/update', controller.shopping.update);
   router.post('/goods/delete', controller.shopping.destroy);

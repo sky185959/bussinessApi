@@ -72,6 +72,12 @@ class ShoppingService extends Service {
     return { count: count.length > 0 ? count[0].totalCount : 0, msg: '', code: '', data: result };
   }
 
+  // 根据id查询数据
+  async findByID(id) {
+    const result = await this.app.mysql.get('tb_goods', { id });
+    return { data: result };
+  }
+
   // 新增商品
   async addModel(data) {
     const { ctx, app } = this;

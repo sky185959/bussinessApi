@@ -28,6 +28,15 @@ class ShoppingController extends Controller {
     ctx.status = 200;
   }
 
+  async find() {
+    const { ctx, service } = this;
+    // get请求获取的参数ctx.request.query
+    const id = ctx.request.query.id;
+    const result = await service.shopping.findByID(id);
+    ctx.body = result;
+    ctx.status = 200;
+  }
+
   async add() {
     const { ctx, service } = this;
     // 验证提交的参数
