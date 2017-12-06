@@ -60,7 +60,7 @@ class ShoppingService extends Service {
     const count = await this.app.mysql.query('SELECT count(id) as totalCount FROM tb_goods');
     // 根据用户名模糊搜索
     if (goodsname) {
-      const sql = " select * from shopping where goodsname like '%" + goodsname + "%' limit " + offset + ',' + limit;
+      const sql = " select * from tb_goods where goodsname like '%" + goodsname + "%' limit " + offset + ',' + limit;
       result = await this.app.mysql.query(sql);
     } else {
       result = await this.app.mysql.select('tb_goods', {
