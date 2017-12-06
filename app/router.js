@@ -44,7 +44,9 @@ module.exports = app => {
   router.get('/shopping/listByShop', controller.shopping.getShoppingListByShop);
   router.get('/shop/listByUser', controller.shop.getShopListByUser);
   router.get('/shopping/listBySale', controller.shopping.getShoppingListBySaleTy);
-  // router.get('/npm/upload', controller.npm.upload);
+  router.post('/npm/upload', controller.npm.upload);
+  router.get('/npm/uploadIndex', controller.npm.uploadIndex);
+
 
   router.post('/goods/add', controller.shopping.add);
   router.post('/goods/update', controller.shopping.update);

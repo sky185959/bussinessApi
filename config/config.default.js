@@ -60,6 +60,9 @@ module.exports = appInfo => {
     agent: false,
   };
 
+
+ 
+// config/config.default.js
   // 开启语言配置为中文
   config.i18n = {
     // 默认语言，默认 "en_US"
