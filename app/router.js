@@ -37,19 +37,19 @@ module.exports = app => {
 
   // 商品路由
   router.get('/shop/list', controller.shop.list);
-  // APP首页
-  router.get('/goods/list', controller.shopping.list);
   router.get('/shop/listByPage', controller.shop.listByPage);
   router.get('/shopping/listByPage', controller.shopping.listByPage);
   router.get('/shopping/listByShop', controller.shopping.getShoppingListByShop);
   router.get('/shop/listByUser', controller.shop.getShopListByUser);
   router.get('/shopping/listBySale', controller.shopping.getShoppingListBySaleTy);
-  router.post('/npm/upload', controller.npm.upload);
-  router.get('/npm/uploadIndex', controller.npm.uploadIndex);
-
 
   router.post('/goods/add', controller.shopping.add);
   router.post('/goods/update', controller.shopping.update);
   router.post('/goods/delete', controller.shopping.destroy);
+  // 单文件上传
+  router.post('/goods/singleUpload', controller.upload.fileSingleUpload);
+
+  // APP首页
+  router.get('/goods/list', controller.shopping.list);
 
 };

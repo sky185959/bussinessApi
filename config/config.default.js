@@ -84,6 +84,7 @@ module.exports = appInfo => {
       '.png', // image/png, image/x-png
       '.gif', // image/gif
       '.bmp', // image/bmp
+      '.txt',
     ],
   };
 

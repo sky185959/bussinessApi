@@ -20,6 +20,15 @@
         <a class="btn btn-danger" onclick="deleteData()">删除用户</a>
         <a class="btn btn-danger" onclick="sendCode()">发送验证码</a>
 
+        <form method="POST" action="/goods/singleUpload" enctype="multipart/form-data">
+            title: <input name="title" />
+            文件1: <input name="file" type="file" />
+            文件2: <input name="file" type="file" />
+            文件3: <input name="file" type="file" />
+            文件4: <input name="file" type="file" />
+            <button type="submit">Upload</button>
+        </form>
+
         <script type="text/javascript">
 
         function login(){
