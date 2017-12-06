@@ -40,6 +40,7 @@ module.exports = app => {
   router.get('/shopping/listByPage', controller.shopping.listByPage);
   router.get('/shopping/listByShop', controller.shopping.getShoppingListByShop);
   router.get('/shop/listByUser', controller.shop.getShopListByUser);
-  router.get('/shopping/saly', controller.shop.getShopListByUser);
+  router.get('/shopping/listBySale', controller.shopping.getShoppingListBySaleTy);
+  router.get('/npm/upload', controller.npm.upload);
 
 };

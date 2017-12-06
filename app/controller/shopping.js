@@ -31,7 +31,7 @@ class ShoppingController extends Controller{
 
 	async getShoppingListBySaleTy(){
 		const {ctx, service}  = this;
-	    let spid = ctx.request.query.saleid;
+	    const saleid = ctx.request.query.saleid;
 		const result = await service.shopping.getShoppingListBySaleTy(saleid);
 		ctx.body = result;
 		ctx.status = 200;

@@ -34,7 +34,7 @@ class ShoppingService extends Service {
   
    async getShoppingListBySaleTy(saleid) {
 	    const result = await this.app.mysql.get('shopdb').select('shopping',{
-	    	where:{sale_ty:saleid}
+	    	where:{sale_ty:saleid,is_delete:0,status:2}
 	    });
 
 	    return { count: result.length, msg: '', code: '', data: result };

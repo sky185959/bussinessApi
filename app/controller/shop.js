@@ -3,6 +3,7 @@
 const Controller = require("egg").Controller;
 
 class ShopController extends Controller{
+
 	async list(){
 		const {ctx, service}  = this;
 		const result = await service.shop.list();
@@ -30,7 +31,7 @@ class ShopController extends Controller{
 		ctx.status = 200;
 	}
 
-	async getShopListByUser(){
+	async getShopListByUser() {
 		const {ctx, service}  = this;
 	    let uid = ctx.request.query.uid;
 		const result = await service.shop.getShopListByUser(uid);
@@ -38,13 +39,5 @@ class ShopController extends Controller{
 		ctx.status = 200;
 	}
 
-	// async getIdList(){
-	// 	const {ctx, service}  = this;
-	// 	const page = ctx.request.query.page;
-	// 	const limit = ctx.request.query.limit;
-	// 	const result = await service.shop.getListWithPage(page, limit);
-	// 	ctx.body = result;
-	// 	ctx.status = 200;
-	// }
 }
 module.exports = ShopController;
