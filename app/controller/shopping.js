@@ -1,6 +1,5 @@
 'use strict';
 
-
 const Controller = require('egg').Controller;
 
 class ShoppingController extends Controller {
@@ -14,14 +13,14 @@ class ShoppingController extends Controller {
   async listByPage() {
     const { ctx, service } = this;
     // 验证提交的参数
-    ctx.validate({
-      page: { type: 'int', required: true },
-      limit: { type: 'int', required: true },
-    });
+    // ctx.validate({
+    //   page: { type: 'int', required: true },
+    //   limit: { type: 'int', required: true },
+    // });
     const page = ctx.request.query.page;
     const limit = ctx.request.query.limit;
-    const name = ctx.request.query.name;
-    const result = await service.shopping.getListByPage(page, limit, name);
+    const goodsname = ctx.request.query.goodsname;
+    const result = await service.shopping.getListByPage(page, limit, goodsname);
     ctx.body = result;
     ctx.status = 200;
   }
@@ -29,13 +28,13 @@ class ShoppingController extends Controller {
   async add() {
     const { ctx, service } = this;
     // 验证提交的参数
-    ctx.validate({
-      goodsname: { type: 'string', required: true },
-      price: { type: 'string', required: true },
-      stock: { type: 'int', required: true },
-      sale_ty: { type: 'int', required: true },
-      status: { type: 'int', required: true },
-    });
+    // ctx.validate({
+    //   goodsname: { type: 'string', required: true },
+    //   price: { type: 'string', required: true },
+    //   stock: { type: 'int', required: true },
+    //   sale_ty: { type: 'int', required: true },
+    //   status: { type: 'int', required: true },
+    // });
     const result = await service.shopping.addModel(ctx.request.body);
     ctx.body = result;
     ctx.status = 200;
@@ -44,14 +43,14 @@ class ShoppingController extends Controller {
   async update() {
     const { ctx, service } = this;
     // 验证提交的参数
-    ctx.validate({
-      id: { type: 'int', required: true },
-      goodsname: { type: 'string', required: true },
-      price: { type: 'string', required: true },
-      stock: { type: 'int', required: true },
-      sale_ty: { type: 'int', required: true },
-      status: { type: 'int', required: true },
-    });
+    // ctx.validate({
+    //   id: { type: 'int', required: true },
+    //   goodsname: { type: 'string', required: true },
+    //   price: { type: 'string', required: true },
+    //   stock: { type: 'int', required: true },
+    //   sale_ty: { type: 'int', required: true },
+    //   status: { type: 'int', required: true },
+    // });
     const result = await service.shopping.updateModel(ctx.request.body);
     ctx.body = result;
     ctx.status = 200;

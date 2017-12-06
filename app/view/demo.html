@@ -56,10 +56,10 @@
 
         function deleteData() {
             $.ajax({
-                type: "delete",
-                url: "http://127.0.0.1:7001/user/delete",
+                type: "post",
+                url: "http://127.0.0.1:7001/goods/delete",
                 data: {
-                    userId: 2
+                    id: 5
                 },
                 async: true,
                 dataType: "json",
@@ -79,16 +79,25 @@
         function addData() {
             $.ajax({
                 type: "post",
-                url: "http://127.0.0.1:7001/login/regWithPhone",
+                url: "http://127.0.0.1:7001/goods/update",
                 // data: {
                 //     username: "tom",
                 //     sex: "男",
                 //     email:"3131@qq.com",
                 //     phone:"213141414"
                 // },
-                 data: {                   
-                    phone:"18210427783",
-                    password:'123456',
+                //  data: {                   
+                //     phone:"18210427783",
+                //     password:'123456',
+                // },
+                data: {
+                    id: 4,
+                    goodsname: "tom11",
+                    price: 1.89,
+                    stock: 10,
+                    sale_ty: 2,
+                    status: 2,
+                    description:'ces'
                 },
                 async: true,
                 dataType: "json",
@@ -109,7 +118,7 @@
                 type: "put",
                 url: "http://127.0.0.1:7001/user/update",
                 data: {
-                    id:3,
+                    id:474,
                     username: "jim",
                     sex: "男11",
                     email:"3131@qq.com",

@@ -10,15 +10,15 @@ class ShoppingService extends Service {
   }
 
   // 分页获取数据
-  async getListByPage(page, pageSize, name) {
+  async getListByPage(page, pageSize, goodsname) {
     let result = null;
     const limit = parseInt(pageSize);
     const offset = (parseInt(page) - 1) * limit;
     // 获取总条数
     const count = await this.app.mysql.query('SELECT count(id) as totalCount FROM tb_goods');
     // 根据用户名模糊搜索
-    if (name) {
-      const sql = " select * from shopping where name like '%" + name + "%' limit " + offset + ',' + limit;
+    if (goodsname) {
+      const sql = " select * from shopping where goodsname like '%" + goodsname + "%' limit " + offset + ',' + limit;
       result = await this.app.mysql.query(sql);
     } else {
       result = await this.app.mysql.select('tb_goods', {
@@ -69,7 +69,7 @@ class ShoppingService extends Service {
 
   // 根据id删除数据
   async destroyModel(id) {
-    const result = await this.app.mysql.delete('tb_goods', id);
+    const result = await this.app.mysql.delete('tb_goods', { id });
     return {
       error_code: result.affectedRows > 0 ? 0 : 1,
       msg: result.affectedRows > 0 ? '删除成功' : '删除失败',
