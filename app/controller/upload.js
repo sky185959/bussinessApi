@@ -17,18 +17,31 @@ class UploadController extends Controller {
     // 文件保存的目录
     let targetDir;
     let returnUrl;
-    // 图片上传到imgUpload文件夹中
-    if (extname === '.jpg' || extname === '.jpeg' || extname === '.png' || extname === '.gif' || extname === '.bmp') {
-      targetDir = path.join(this.config.baseDir, '/app/public/imgUpload', filename);
-      returnUrl = path.join('/public/imgUpload', filename);
-    } else if (extname === '.doc' || extname === '.txt' || extname === '.xls') {
-      targetDir = path.join(this.config.baseDir, '/app/public/officeUpload', filename);
-      returnUrl = path.join('/public/officeUpload', filename);
-    } else {
-      targetDir = path.join(this.config.baseDir, '/app/public/otherUpload', filename);
-      returnUrl = path.join('/public/otherUpload', filename);
+    // 上传到制定的文件夹中
+    switch (extname) {
+      case '.jpg':
+      case '.jpeg':
+      case '.png':
+      case '.bmp':
+      case '.gif':
+        targetDir = path.join(this.config.baseDir, 'app', this.config.uploadPath.imgUpload, filename);
+        returnUrl = path.join(this.config.uploadPath.imgUpload, filename);
+        break;
+      case '.doc':
+      case '.docx':
+      case '.xls':
+      case '.xlsx':
+      case '.ppt':
+      case '.ppts':
+      case '.txt':
+        targetDir = path.join(this.config.baseDir, 'app', this.config.uploadPath.officeUpload, filename);
+        returnUrl = path.join(this.config.uploadPath.officeUpload, filename);
+        break;
+      default:
+        targetDir = path.join(this.config.baseDir, 'app', this.config.uploadPath.otherUpload, filename);
+        returnUrl = path.join(this.config.uploadPath.otherUpload, filename);
+        break;
     }
-    console.log(targetDir);
     const writeStream = fs.createWriteStream(targetDir);
     try {
       await awaitWriteStream(stream.pipe(writeStream));
@@ -37,12 +50,65 @@ class UploadController extends Controller {
       throw err;
     }
     // 返回文件的路径
-    this.ctx.body = { url: returnUrl };
+    this.ctx.body = {
+      msg: '单文件上传',
+      url: returnUrl,
+    };
   }
 
   // 多文件上传
   async MultipleUpload() {
-    // to do
+    const parts = this.ctx.multipart({ autoFields: true });
+    const files = [];
+
+    let stream;
+    while ((stream = await parts()) != null) {
+      const extname = path.extname(stream.filename).toLowerCase();
+      const filename = new Date().getTime() + path.extname(stream.filename).toLowerCase();
+      // 文件保存的目录
+      let targetDir;
+      let returnUrl;
+      // 上传到制定的文件夹中
+      switch (extname) {
+        case '.jpg':
+        case '.jpeg':
+        case '.png':
+        case '.bmp':
+        case '.gif':
+          targetDir = path.join(this.config.baseDir, 'app', this.config.uploadPath.imgUpload, filename);
+          returnUrl = path.join(this.config.uploadPath.imgUpload, filename);
+          break;
+        case '.doc':
+        case '.docx':
+        case '.xls':
+        case '.xlsx':
+        case '.ppt':
+        case '.ppts':
+        case '.txt':
+          targetDir = path.join(this.config.baseDir, 'app', this.config.uploadPath.officeUpload, filename);
+          returnUrl = path.join(this.config.uploadPath.officeUpload, filename);
+          break;
+        default:
+          targetDir = path.join(this.config.baseDir, 'app', this.config.uploadPath.otherUpload, filename);
+          returnUrl = path.join(this.config.uploadPath.otherUpload, filename);
+          break;
+      }
+
+      const writeStream = fs.createWriteStream(targetDir);
+      try {
+        await awaitWriteStream(stream.pipe(writeStream));
+      } catch (err) {
+        await sendToWormhole(stream);
+        throw err;
+      }
+      files.push(returnUrl);
+    }
+    // 返回文件的路径
+    this.ctx.body = {
+      msg: '多文件上传',
+      count: files.length,
+      urls: files,
+    };
   }
 
 }

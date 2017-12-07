@@ -70,6 +70,9 @@ class ShoppingController extends Controller {
 
   async destroy() {
     const { ctx, service } = this;
+    ctx.validate({
+      id: { type: 'id', required: true },
+    });
     const id = ctx.request.body.id;
     const result = await service.shopping.destroyModel(id);
     ctx.body = result;

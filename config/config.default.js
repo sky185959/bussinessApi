@@ -61,8 +61,6 @@ module.exports = appInfo => {
   };
 
 
- 
-// config/config.default.js
   // 开启语言配置为中文
   config.i18n = {
     // 默认语言，默认 "en_US"
@@ -75,6 +73,13 @@ module.exports = appInfo => {
     cookieMaxAge: '1y',
   };
 
+  // 配置文件上传的路劲
+  config.uploadPath = {
+    imgUpload: '/public/imgUpload', // 图片上传的路径
+    officeUpload: '/public/officeUpload', // office文件上传的路径
+    otherUpload: '/public/otherUpload', // 其他文件上传的路径
+  };
+
   // 上传文件配置
   config.multipart = {
     fileSize: '50mb', // 上传文件的大小
@@ -85,6 +90,12 @@ module.exports = appInfo => {
       '.gif', // image/gif
       '.bmp', // image/bmp
       '.txt',
+      '.doc',
+      '.docx',
+      '.xls',
+      '.xlsx',
+      '.ppt',
+      '.pptx',
     ],
   };
 

@@ -65,7 +65,7 @@ class UserController extends Controller {
     const { ctx, service } = this;
     // 验证提交的参数
     ctx.validate({
-      id: { type: 'int', required: true },
+      id: { type: 'id', required: true },
     });
     const result = await service.user.updateModel(ctx.request.body);
     ctx.body = result;
@@ -74,6 +74,9 @@ class UserController extends Controller {
 
   async destroy() {
     const { ctx, service } = this;
+    ctx.validate({
+      userId: { type: 'id', required: true },
+    });
     const userId = ctx.request.body.userId;
     const result = await service.user.destroyModel(userId);
     ctx.body = result;

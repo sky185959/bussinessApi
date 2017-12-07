@@ -20,7 +20,18 @@
         <a class="btn btn-danger" onclick="deleteData()">删除用户</a>
         <a class="btn btn-danger" onclick="sendCode()">发送验证码</a>
 
+        <hr/>
+        <h1>单文件上传</h1>
         <form method="POST" action="/goods/singleUpload" enctype="multipart/form-data">
+            title: <input name="title" />
+            文件1: <input name="file" type="file" />
+            <button type="submit">Upload</button>
+        </form>
+
+
+        <hr/>
+        <h1>多文件上传</h1>
+        <form method="POST" action="/goods/multipleUpload" enctype="multipart/form-data">
             title: <input name="title" />
             文件1: <input name="file" type="file" />
             文件2: <input name="file" type="file" />
@@ -66,9 +77,9 @@
         function deleteData() {
             $.ajax({
                 type: "post",
-                url: "http://127.0.0.1:7001/goods/delete",
+                url: "http://127.0.0.1:7001/banner/delete",
                 data: {
-                    id: 5
+                    id: 1
                 },
                 async: true,
                 dataType: "json",
@@ -88,7 +99,7 @@
         function addData() {
             $.ajax({
                 type: "post",
-                url: "http://127.0.0.1:7001/goods/update",
+                url: "http://127.0.0.1:7001/banner/add",
                 // data: {
                 //     username: "tom",
                 //     sex: "男",
@@ -99,14 +110,18 @@
                 //     phone:"18210427783",
                 //     password:'123456',
                 // },
+                // data: {
+                //     goodsname: "tom11",
+                //     price: 1.89,
+                //     stock: 10,
+                //     sale_ty: 2,
+                //     status: 2,
+                //     description:'ces'
+                // },
                 data: {
-                    id: 4,
-                    goodsname: "tom11",
-                    price: 1.89,
-                    stock: 10,
-                    sale_ty: 2,
-                    status: 2,
-                    description:'ces'
+                    title: "tom11",
+                    imgpath: '1.89',
+                    isshow: 1,
                 },
                 async: true,
                 dataType: "json",
@@ -124,14 +139,20 @@
 
         function updateData(){
             $.ajax({
-                type: "put",
-                url: "http://127.0.0.1:7001/user/update",
+                type: "post",
+                url: "http://127.0.0.1:7001/banner/update",
+                // data: {
+                //     id:474,
+                //     username: "jim",
+                //     sex: "男11",
+                //     email:"3131@qq.com",
+                //     phone:"213141414"
+                // },
                 data: {
-                    id:474,
-                    username: "jim",
-                    sex: "男11",
-                    email:"3131@qq.com",
-                    phone:"213141414"
+                    id: 2,
+                    title: "qqqqq",
+                    imgpath: '1.89',
+                    isshow: 1,
                 },
                 async: true,
                 dataType: "json",

@@ -49,6 +49,15 @@ module.exports = app => {
   router.post('/goods/delete', controller.shopping.destroy);
   // 单文件上传
   router.post('/goods/singleUpload', controller.upload.fileSingleUpload);
+  router.post('/goods/multipleUpload', controller.upload.MultipleUpload);
+
+
+  // banner路由
+  router.get('/banner/list', controller.banner.list);
+  router.get('/banner/getModelById', controller.banner.find);
+  router.post('/banner/add', controller.banner.add);
+  router.post('/banner/update', controller.banner.update);
+  router.post('/banner/delete', controller.banner.destroy);
 
   // APP首页
   router.get('/goods/list', controller.shopping.list);
