@@ -37,7 +37,7 @@ class BannerController extends Controller {
     const { ctx, service } = this;
     // 验证提交的参数
     ctx.validate({
-      id: { type: 'id', required: true },
+      id: { type: 'int', required: true },
       title: { type: 'string', required: true },
       imgpath: { type: 'string', required: true },
       isshow: { type: 'string', required: true },
@@ -50,7 +50,7 @@ class BannerController extends Controller {
   async destroy() {
     const { ctx, service } = this;
     ctx.validate({
-      id: { type: 'id', required: true },
+      id: { type: 'int', required: true },
     });
     const id = ctx.request.body.id;
     const result = await service.banner.destroyModel(id);
