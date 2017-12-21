@@ -62,4 +62,8 @@ module.exports = app => {
   // APP首页
   router.get('/goods/list', controller.shopping.list);
 
+  //订单
+  router.get("/order/list",controller.order.list)
+  router.get("/order/add",controller.order.add)
+
 };
