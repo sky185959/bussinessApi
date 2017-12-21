@@ -64,6 +64,6 @@ module.exports = app => {
 
   //订单
   router.get("/order/list",controller.order.list)
-  router.get("/order/add",controller.order.add)
+  router.post("/ordr/add",controller.order.add)
 
 };
