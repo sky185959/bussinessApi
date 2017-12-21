@@ -5,13 +5,14 @@ const Service = require('egg').Service;
 class OrderService extends Service {
 	
   // 根据用户名和密码登录
-  async list(page, pageSize,order_no=null) {
+  async list(page, pageSize,order_no=null,user_id=null) {
   	const limit = parseInt(pageSize);
     const offset = (parseInt(page) - 1) * limit;
     //SELECT `id`, `order_no`, `price_cu`, `create_time`, `sent_time`, `addr_id`, `count`, `status`, `pay_time`, `is_delete` FROM `tb_order` limit 0,10
     const listArr = await await this.app.mysql.select("tb_order",{
     	orders:[["create_time",'desc']],
     	order_no,
+      user_id,
     	limit,
     	offset
     });
