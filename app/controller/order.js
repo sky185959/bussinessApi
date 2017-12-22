@@ -19,8 +19,16 @@ class OrderController extends Controller{
 	//订单创建
 	async add(){
 		const { ctx, service } = this;
-	    const resultList = await service.order.addlist(ctx.request.query);
+	    const resultList = await service.order.addlist(ctx.request.body);
 	    ctx.body = {resultList};
+	    ctx.status = 200;
+	}
+
+	//订单状态修改 1:已付款待发货，2已发货:3已完成
+	async update(){
+		const { ctx, service } = this;
+		const result = await service.order.update(ctx.request.body);
+	    ctx.body = {result};
 	    ctx.status = 200;
 	}
 }

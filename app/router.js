@@ -65,5 +65,11 @@ module.exports = app => {
   //订单
   router.get("/order/list",controller.order.list)
   router.post("/ordr/add",controller.order.add)
+  router.post("/ordr/update",controller.order.update)
+
+  //地址控制
+  router.get("/address/list",controller.address.list)
+  router.post("/address/add",controller.address.add)
+  router.post("/address/update",controller.address.update)
 
 };

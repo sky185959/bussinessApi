@@ -8,15 +8,38 @@ class OrderService extends Service {
   async list(page, pageSize,order_no=null,user_id=null) {
   	const limit = parseInt(pageSize);
     const offset = (parseInt(page) - 1) * limit;
+    const where = {};
+    if(user_id){
+      where.user_id=user_id
+    }
+    if(order_no){
+      where.order_no=order_no
+    }
     //SELECT `id`, `order_no`, `price_cu`, `create_time`, `sent_time`, `addr_id`, `count`, `status`, `pay_time`, `is_delete` FROM `tb_order` limit 0,10
-    const listArr = await await this.app.mysql.select("tb_order",{
-    	orders:[["create_time",'desc']],
-    	order_no,
-      user_id,
+    const listArr =  await this.app.mysql.select("tb_order",{
+      where,
     	limit,
-    	offset
+    	offset,
+      orders:[["create_time",'desc']],
     });
+   
+    if(listArr){
+       for( let item in listArr){
+         let info = await this.getOrderInfo(listArr[item].order_no);
+         listArr[item].order_info = info;
+
+       }
+    }
+
     return { data: listArr }
+  }
+
+  async getOrderInfo(order_no){
+    const orderListInfo = await this.app.mysql.select("tb_orderinfo",{
+      where:{order_no},
+      orders:[["create_time",'desc']],
+    });
+    return orderListInfo;
   }
 
   async addlist(list){
@@ -30,13 +53,7 @@ class OrderService extends Service {
       addr_id:list.addr_id,
     }
     const resultData = await this.app.mysql.insert('tb_order', insertData);
-  //  SELECT `id`, `order_no`, `shopping_id`, `shopping_count`, `shopping_name`, `price`, `create_time` FROM `tb_orderinfo` WHERE 1
-    // list.orderInfo = [
-    //   {shopping_id:1,shopping_name:"hello",price:"12.3",shopping_count:"1"},
-    //   {shopping_id:2,shopping_name:"hello1",price:"12.3",shopping_count:"1"},
-    //   {shopping_id:3,shopping_name:"hello2",price:"12.3",shopping_count:"1"},
-    // ]
-    
+
     if(list.orderInfo){
       for ( let item in list.orderInfo) {
           let insertDataInfo = {};
@@ -56,6 +73,31 @@ class OrderService extends Service {
       orderNo: order_no, // 添加返回的ID
       error_code: resultData.affectedRows > 0 ? 0 : 1,
       msg: resultData.affectedRows > 0 ? '添加成功' : '添加失败',
+    };
+
+  }
+
+  //状态修改
+  async update(data){
+    const { ctx, app } = this;
+    const currenttime = ctx.helper.currentDateTime();
+
+    switch(data.status){
+      case 1:
+        data.pay_time=currenttime;//已经付款
+      break;
+      case 2:
+        data.sent_time=currenttime;//已经发货
+      break;
+      case 3:
+        data.final_time=currenttime;//订单确认完成
+      break;
+    }
+     
+    const result = await app.mysql.update('tb_order', data);
+    return {
+      error_code: result.affectedRows > 0 ? 0 : 1,
+      msg: result.affectedRows > 0 ? '修改成功' : '修改失败',
     };
 
   }
