@@ -15,6 +15,7 @@ class OrderService extends Service {
     if(order_no){
       where.order_no=order_no
     }
+    where.status=[0,1,2,3];
     //SELECT `id`, `order_no`, `price_cu`, `create_time`, `sent_time`, `addr_id`, `count`, `status`, `pay_time`, `is_delete` FROM `tb_order` limit 0,10
     const listArr =  await this.app.mysql.select("tb_order",{
       where,

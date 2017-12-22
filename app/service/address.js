@@ -27,8 +27,6 @@ class AddressService extends Service {
   	//地址修改
   	async update(data){
 
-  		const { ctx, app } = this;
-	    const currenttime = ctx.helper.currentDateTime();
 	    const result = await app.mysql.update('tb_address', data);
 	    return {
 	      error_code: result.affectedRows > 0 ? 0 : 1,
