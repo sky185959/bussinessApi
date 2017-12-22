@@ -27,7 +27,7 @@ class AddressService extends Service {
   	//地址修改
   	async update(data){
 
-	    const result = await app.mysql.update('tb_address', data);
+	    const result = await this.app.mysql.update('tb_address', data);
 	    return {
 	      error_code: result.affectedRows > 0 ? 0 : 1,
 	      msg: result.affectedRows > 0 ? '修改成功' : '修改失败',
