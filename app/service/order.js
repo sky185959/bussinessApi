@@ -5,15 +5,18 @@ const Service = require('egg').Service;
 class OrderService extends Service {
 	
   // 根据用户名和密码登录
-  async list(page, pageSize,order_no=null,user_id=null) {
+  async list(page, pageSize,order_no=null,user_id=null,status=null) {
   	const limit = parseInt(pageSize);
     const offset = (parseInt(page) - 1) * limit;
     const where = {};
     if(user_id){
-      where.user_id=user_id
+      where.user_id = user_id
     }
     if(order_no){
-      where.order_no=order_no
+      where.order_no = order_no
+    }
+    if(status!==null){
+      where.status = status
     }
     where.status=[0,1,2,3];
     //SELECT `id`, `order_no`, `price_cu`, `create_time`, `sent_time`, `addr_id`, `count`, `status`, `pay_time`, `is_delete` FROM `tb_order` limit 0,10
