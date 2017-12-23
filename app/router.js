@@ -73,4 +73,8 @@ module.exports = app => {
   router.post("/address/add",controller.address.add)
   router.post("/address/update",controller.address.update)
 
+  //购物车
+  router.get("/car/fetch",controller.buycar.fetch)
+  router.post("/car/add",controller.buycar.add)
+
 };
