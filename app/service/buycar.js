@@ -21,10 +21,10 @@ class BuycarService extends Service {
   		const carRs = await this.app.mysql.insert("tb_car",carData);
   		const carInfoData = {
   			car_id:carRs.insertId,
-  			shopping_id:result.shopping_id,
-  			count:result.count,
-  			shopping_name:result.shopping_name,
-  			shopping_price:result.shopping_price,
+  			shopping_id:data.shopping_id,
+  			count:data.count,
+  			shopping_name:data.shopping_name,
+  			shopping_price:data.shopping_price,
   		}
   		const result = await this.app.mysql.insert("tb_carinfo",carInfoData);
 
