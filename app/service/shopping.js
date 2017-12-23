@@ -131,13 +131,21 @@ class ShoppingService extends Service {
     return { count: result.length, msg: '', code: '', data: result };
   }
 
+  //
   async getShoppingListBySaleTy(saleid) {
-    const result = await this.app.mysql.select('shopping', {
+    const result = await this.app.mysql.select('tb_goods', {
       where: { sale_ty: saleid, is_delete: 0, status: 2 },
     });
     return { count: result.length, msg: '', code: '', data: result };
   }
 
+
+  //获取商品详情
+  async getShoppingById(id) {
+    const result = await this.app.mysql.get('tb_goods',{ id:id, is_delete:0,status:2}
+    );
+    return { msg: '', code: '', data: result };
+  }
 }
 
 module.exports = ShoppingService;

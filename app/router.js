@@ -47,6 +47,7 @@ module.exports = app => {
   router.post('/goods/add', controller.shopping.add);
   router.post('/goods/update', controller.shopping.update);
   router.post('/goods/delete', controller.shopping.destroy);
+  router.get('/goods/detail', controller.shopping.getShoppingById);
   // 单文件上传
   router.post('/goods/singleUpload', controller.upload.fileSingleUpload);
   router.post('/goods/multipleUpload', controller.upload.MultipleUpload);

@@ -94,5 +94,12 @@ class ShoppingController extends Controller {
     ctx.body = result;
     ctx.status = 200;
   }
+  async getShoppingById() {
+    const { ctx, service } = this;
+    const spid = ctx.request.query.id;
+    const result = await service.shopping.getShoppingById(spid);
+    ctx.body = result;
+    ctx.status = 200;
+  }
 }
 module.exports = ShoppingController;
