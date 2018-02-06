@@ -9,6 +9,7 @@ class BuycarService extends Service {
 	async fetch(user_id) {
 		
 	    const sql = "select c.id,c.user_id,i.id sid,i.shopping_id,i.count,s.goodsname,s.price,s.pic0 from tb_car c left join tb_carinfo i on c.id=i.car_id left join tb_goods s on i.shopping_id=s.id where c.user_id="+user_id+"  order by c.id desc";
+
 	    const result = await this.app.mysql.query(sql);
 	    return { data: result };
   	}
