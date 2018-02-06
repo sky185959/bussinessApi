@@ -16,6 +16,8 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+
+te
 -- Table structure for table `address`
 --
 
